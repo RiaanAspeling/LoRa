@@ -19,6 +19,9 @@ namespace LoRa.Commands
 
         public LoRa_SX126X_Configuration() { }
 
+        // Possible response:
+        // C1-00-09-00-00-00-62-20-17-C3-00-00
+
         public LoRa_SX126X_Configuration GetSettingsResult(byte[] rawSettings)
         {
                 if (rawSettings[0] != 0xC1 || rawSettings[2] != 0x09)
