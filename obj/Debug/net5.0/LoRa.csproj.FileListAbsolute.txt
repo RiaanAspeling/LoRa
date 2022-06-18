@@ -1,0 +1,16 @@
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa.deps.json
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa.runtimeconfig.json
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa.runtimeconfig.dev.json
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa.dll
+/home/pi/code/LoRa/bin/Debug/net5.0/LoRa.pdb
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.csproj.AssemblyReference.cache
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.GeneratedMSBuildEditorConfig.editorconfig
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.AssemblyInfoInputs.cache
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.AssemblyInfo.cs
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.csproj.CoreCompileInputs.cache
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.dll
+/home/pi/code/LoRa/obj/Debug/net5.0/refint/LoRa.dll
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.pdb
+/home/pi/code/LoRa/obj/Debug/net5.0/LoRa.genruntimeconfig.cache
+/home/pi/code/LoRa/obj/Debug/net5.0/ref/LoRa.dll
