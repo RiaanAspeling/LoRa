@@ -18,7 +18,7 @@ namespace LoRa
         private SX126X_Communication_Mode _commsMode;
 
         public Dictionary<int, int> SX126X_UART_Baudrate = new Dictionary<int, int>() { {0x00, 1200}, {0x20, 2400}, {0x40, 4800}, {0x60, 9600}, {0x80, 19200}, {0xA0, 38400}, {0xC0, 57600}, {0xE0, 115200} };
-        public Dictionary<int, int> SX126X_Buffer_Size = new Dictionary<int, int>() { {0x00, 240}, {0x40, 128}, {0x80, 64}, {0xC0, 32} };
+
         public enum SX126X_Communication_Mode {_RaspberryPi = 0x00, _PC = 0x01 }
 
         public bool RSSI_Enabled { get; set; } = false;

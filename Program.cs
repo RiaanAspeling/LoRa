@@ -49,7 +49,7 @@ namespace LoRa
 
             var config = loraNew.GetConfig();
 
-            Console.WriteLine($"Frequency = {config?.Frequency}, Address = {config?.Address}, AirSpeed = {config?.AirSpeed}, Power = {config?.Power}");
+            Console.WriteLine($"Settings: {config}");
 
             Console.WriteLine("Press any key to close..");
             Console.ReadLine();
