@@ -17,7 +17,7 @@ namespace LoRa
         private int _m1_Pin = 27;
         private SX126X_Communication_Mode _commsMode;
 
-        public Dictionary<int, int> SX126X_UART_Baudrate = new Dictionary<int, int>() { {0x00, 1200}, {0x20, 2400}, {0x40, 4800}, {0x60, 9600}, {0x80, 19200}, {0xA0, 38400}, {0xC0, 57600}, {0xE0, 115200} };
+        // public Dictionary<int, int> SX126X_UART_Baudrate = new Dictionary<int, int>() { {0x00, 1200}, {0x20, 2400}, {0x40, 4800}, {0x60, 9600}, {0x80, 19200}, {0xA0, 38400}, {0xC0, 57600}, {0xE0, 115200} };
 
         public enum SX126X_Communication_Mode {_RaspberryPi = 0x00, _PC = 0x01 }
 
@@ -42,14 +42,18 @@ namespace LoRa
 
             _commsMode = commsMode;
 
-            // Get M0 and M1 pins
-            _m0_Pin = m0_Pin;
-            _m1_Pin = m1_Pin;
-            
-            // Setup GPIO
-            _gpio = new GpioController();
-            _gpio.OpenPin(_m0_Pin, PinMode.Output);
-            _gpio.OpenPin(_m1_Pin, PinMode.Output);
+            if (_commsMode == SX126X_Communication_Mode._RaspberryPi)
+            {
+                // For the RaspberryPi we need to setup the pins to control M0 and M1
+                // Get M0 and M1 pins
+                _m0_Pin = m0_Pin;
+                _m1_Pin = m1_Pin;
+                
+                // Setup GPIO
+                _gpio = new GpioController();
+                _gpio.OpenPin(_m0_Pin, PinMode.Output);
+                _gpio.OpenPin(_m1_Pin, PinMode.Output);
+            }
         }
 
         ~LoRa_SX126X()
@@ -90,9 +94,16 @@ namespace LoRa
             if (!_comm.IsOpen()) 
                 return null;
             ConfigureModuleForSettingsMode();
-            var response = SendCommand<LoRa_SX126X_Configuration>(sx126xCommands.GetSettings);
+            var response = SendCommandAndGetResponse<LoRa_SX126X_Configuration>(sx126xCommands.GetSettings);
             ConfigureModuleNormalMode();
             return response;
+        }
+
+        public bool SetConfig(LoRa_SX126X_Configuration newConfig)
+        {
+            if (!_comm.IsOpen()) 
+                return false;
+            return true;
         }
 
         public void SetupModule(LoRa_SX126X_Configuration config)
@@ -115,17 +126,18 @@ namespace LoRa
         private void ConfigureModuleNormalMode()
         {
             if (_commsMode == SX126X_Communication_Mode._PC) return;
+            // Both M0 and M1 needs to be down for normal opperation
             _gpio.Write(_m0_Pin, PinValue.Low);
             _gpio.Write(_m1_Pin, PinValue.Low);
             Thread.Sleep(100);
         }
 
-        private T SendCommand<T>(String output) where T: IMapResult<T>
+        private T SendCommandAndGetResponse<T>(String output) where T: IMapResult<T>
         {
-            return SendCommand<T>(Encoding.ASCII.GetBytes(output));
+            return SendCommandAndGetResponse<T>(Encoding.ASCII.GetBytes(output));
         }
 
-        private  T SendCommand<T>(byte[] data) where T: IMapResult<T>
+        private  T SendCommandAndGetResponse<T>(byte[] data) where T: IMapResult<T>
         {
             try {
                 var response = _comm.ExecuteCommand(data);
