@@ -8,20 +8,20 @@ namespace LoRa.Commands
         private Dictionary<int, int> SX126X_AirSpeed = new Dictionary<int, int>() { {0x01, 1200}, {0x02, 2400}, {0x03, 4800}, {0x04, 9600}, {0x05, 19200}, {0x06, 38400}, {0x07, 62500} };
         private Dictionary<int, int> SX126X_Buffer_Size = new Dictionary<int, int>() { {0x00, 240}, {0x40, 128}, {0x80, 64}, {0xC0, 32} };
 
-        public int Address { get; set; } = 0;
-        public int NetworkId { get; set; } = 0;
-        public int AirSpeed { get; set; } = 0;
-        public int Power { get; set; } = 0;
-        public int BufferSize { get; set; } = 0;
-        public int Frequency { get; set; } = 0;
+        public int Address { get; set; } = -1;
+        public int NetworkId { get; set; } = -1;
+        public int AirSpeed { get; set; } = -1;
+        public int Power { get; set; } = -1;
+        public int BufferSize { get; set; } = -1;
+        public int Frequency { get; set; } = -1;
         public bool RSSI { get; set; } = false;
         public bool Relay { get; set; } = false;
-        public int Encryption { get; set; } = 0;
+        public int Encryption { get; set; } = -1;
 
         public LoRa_SX126X_Configuration() { }
 
         // Possible response:
-        // C1-00-09-00-00-00-62-20-17-C3-00-00
+        // C1-00-09-00-00-00-62-20-17-83-00-00
 
         public LoRa_SX126X_Configuration GetSettingsResult(byte[] rawSettings)
         {
