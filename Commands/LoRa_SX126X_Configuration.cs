@@ -7,6 +7,7 @@ namespace LoRa.Commands
     {
         private int[] SX126X_Power = new int[] { 22, 17, 13, 10 };
         private int[] SX126X_AirSpeed = new int[] { 300, 1200, 2400, 4800, 9600, 19200, 38400, 62500 };
+		private int[] SX126X_UartBaudRate = new int[] { 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200 };
         private int[] SX126X_Packet_Size = new int[] { 240, 128, 64, 32 };
 		private int[] SX126X_WOR_Cycle = new int[] { 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000 };
 
@@ -25,6 +26,7 @@ namespace LoRa.Commands
         public int Address { get; set; } = -1;
         public int NetworkId { get; set; } = -1;
         public int AirSpeed { get; set; } = -1;
+		public int UartBaudRate { get; set; } = -1;
         public int Power { get; set; } = -1;
 		public bool ChannelRSSI { get; set; } = false;
         public int PacketSize { get; set; } = -1;
@@ -47,7 +49,7 @@ namespace LoRa.Commands
 		//                |  |  |  |  |  |
 		//                NetworkId|  |  |
 		//                   |  |  |  |  |
-		//                   AirSpeed |  |
+		//                   AirSpeed/UartBaudRate
 		//                      |  |  |  |
 		//                      Power/ChannelRSSI/PacketSize
 		//                         |  |  |
@@ -65,6 +67,7 @@ namespace LoRa.Commands
                 rtn.Address = (rawSettings[3] << 8) + rawSettings[4];
                 rtn.NetworkId = rawSettings[5];
                 rtn.AirSpeed = SX126X_AirSpeed[rawSettings[6].ReadBitRange(0, 3)];
+				rtn.UartBaudRate = SX126X_UartBaudRate[rawSettings[6].ReadBitRange(5, 3)];
                 rtn.Power = SX126X_Power[rawSettings[7].ReadBitRange(0, 2)];
 				rtn.ChannelRSSI = rawSettings[7].ReadBitRange(5, 1) == 1;
                 rtn.PacketSize = SX126X_Packet_Size[rawSettings[7].ReadBitRange(6, 2)];
@@ -81,7 +84,7 @@ namespace LoRa.Commands
 
         public override string ToString()
         {
-            return $"Address = {Address}, NetworkId = {NetworkId}, AirSpeed = {AirSpeed}, Power = {Power}, " +
+            return $"Address = {Address}, NetworkId = {NetworkId}, AirSpeed = {AirSpeed}, UartBaudRate = {UartBaudRate}, Power = {Power}, " +
 				   $"ChannelRSSI = {ChannelRSSI}, PacketSize = {PacketSize}, ChannelOffset = {ChannelOffset}, " +
 				   $"WORCycle = {WORCycle}, WORRole = {WORRole}, LBT = {LBT}, Relay = {Relay}, TranMode = {TranMode}, " +
 				   $"PacketRSSI = {PacketRSSI}, Key = {Key}";
@@ -103,6 +106,14 @@ AirSpeed 	[6] 0..2		300:		0x60 -> 0110 0000
 							19200:		0x65 -> 0110 0101
 							38400:		0x66 -> 0110 0110
 							62500:		0x67 -> 0110 0111
+UART Baudrate [6] 5..7		1200:		0x00 -> 0000 0010
+							2400:		0x20 -> 0010 0010
+							4800:		0x40 -> 0100 0010
+							9600:		0x60 -> 0110 0010
+							19200:		0x80 -> 1000 0010
+							38400:		0xA0 -> 1010 0010
+							57600:		0xC0 -> 1100 0010
+							115200:		0XE0 -> 1110 0010
 Power		[7]	0..1		22:			0x20 -> 0010 0000
 							17:			0x21 -> 0010 0001
 							13:			0x22 -> 0010 0010
