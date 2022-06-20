@@ -2,12 +2,12 @@ namespace LoRa.Utils
 {
     public static class BitHandler
     {
-        public static int ReadBit(this int value, int bitPosistion)
+        public static int ReadBit(this byte value, int bitPosistion)
         {
             return (value & (1 << bitPosistion)) > 0 ? 1 : 0;
         }
 
-        public static int ReadBitRange(this int value, int startPosition, int length)
+        public static int ReadBitRange(this byte value, int startPosition, int length)
         {
             return (value & BuildBitMask(startPosition, length)) >> startPosition;
         }
