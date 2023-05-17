@@ -29,7 +29,7 @@ When the changes are ready to go into *development*
 >__*Note*__ To ensure that *someone/23418* can independently move to staging and master, development __MUST NOT__ be merged into *someone/23418*, only into *someone/23418*__*-to-dev*__.
 
 ### Feature lifecycle
-:::mermaid
+```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'dark', 
 'gitGraph': {'showCommitLabel': false},
 'themeVariables': {
@@ -83,7 +83,7 @@ gitGraph
     checkout main
     merge someone/23418-to-main
     commit
-:::
+```
 
 ## Example
 Developer Bob starts with ticket 24631.
