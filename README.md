@@ -30,7 +30,7 @@ When the changes are ready to go into *development*
 
 ### Feature lifecycle
 ```mermaid
-%%{init: { 'logLevel': 'debug', 'theme': 'dark', 
+%%{init: { 'logLevel': 'debug', 'theme': 'default', 
 'gitGraph': {'showCommitLabel': false}
 }}%%    
 gitGraph
