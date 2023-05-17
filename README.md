@@ -31,16 +31,7 @@ When the changes are ready to go into *development*
 ### Feature lifecycle
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'dark', 
-'gitGraph': {'showCommitLabel': false},
-'themeVariables': {
-    'git0': '#C86464',
-    'git1': '#C88C46',
-    'git2': '#AF9632',
-    'git3': '#32AF4B',
-    'git4': '#32AF96',
-    'git5': '#6464C8',
-    'git6': '#6496C8',
-    'git7': '#9664C8'}
+'gitGraph': {'showCommitLabel': false}
 }}%%    
 gitGraph
     branch staging
